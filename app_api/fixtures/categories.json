@@ -1,0 +1,9 @@
+[
+    {
+        "model": "app_api.category",
+        "pk": 1,
+        "fields": {
+            "label": "School"
+        }
+    }
+]

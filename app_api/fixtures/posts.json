@@ -1,0 +1,17 @@
+[
+    {
+        "model": "app_api.post",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "category": 1,
+            "title": "test",
+            "publication_date": "2022-08-15",
+            "image_url": "",
+            "content":"initial test",
+            "approved": true,
+            "reactions": [],
+            "tags": [1]
+        }
+    }
+]

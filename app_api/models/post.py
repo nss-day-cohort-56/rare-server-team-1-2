@@ -11,6 +11,6 @@ class Post(models.Model):
     publication_date = models.DateField(auto_now_add= True)
     image_url = models.TextField()
     content = models.TextField()
-    approved = models.BooleanField()
+    approved = models.BooleanField(default= False)
     reactions = models.ManyToManyField("Reaction", related_name="posts")
     tags = models.ManyToManyField("Tag", related_name="posts")

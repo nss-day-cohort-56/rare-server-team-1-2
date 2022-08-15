@@ -1,0 +1,9 @@
+[
+    {
+        "model": "app_api.tag",
+        "pk": 1,
+        "fields": {
+            "label": "Cool Stuff"
+        }
+    }
+]

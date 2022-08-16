@@ -14,3 +14,5 @@ class Post(models.Model):
     approved = models.BooleanField(default= False)
     reactions = models.ManyToManyField("Reaction", related_name="posts")
     tags = models.ManyToManyField("Tag", related_name="posts")
+    def __str__(self):
+        return self.title

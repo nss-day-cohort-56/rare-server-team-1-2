@@ -26,7 +26,8 @@ def login_user(request):
         data = {
             'valid': True,
             'token': token.key,
-            'user_id': authenticated_user.id
+            'user_id': authenticated_user.id,
+            'is_staff': authenticated_user.is_staff 
         }
     else:
         data = { 'valid': False }
@@ -55,5 +56,5 @@ def register_user(request):
 
     # GM I added the 'valid: True' data to the dict - client side needs it to complete register workflow.
     
-    data = { 'token': token.key, 'user_id': new_user.id, 'valid': True}
+    data = { 'token': token.key, 'user_id': new_user.id, 'valid': True, 'is_staff': new_user.is_staff}
     return Response(data, status=status.HTTP_201_CREATED)

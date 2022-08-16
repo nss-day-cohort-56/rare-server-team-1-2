@@ -52,6 +52,8 @@ def register_user(request):
     
     token = Token.objects.create(user=new_user)
     # TODO: If you need to send the client more information update the data dict
+
+    # GM I added the 'valid: True' data to the dict - client side needs it to complete register workflow.
     
-    data = { 'token': token.key, 'user_id': new_user.id }
+    data = { 'token': token.key, 'user_id': new_user.id, 'valid': True}
     return Response(data, status=status.HTTP_201_CREATED)

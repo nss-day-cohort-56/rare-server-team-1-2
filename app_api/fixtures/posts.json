@@ -13,5 +13,53 @@
             "reactions": [],
             "tags": [1]
         }
+    },
+
+    {
+        "model": "app_api.post",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "category": 1,
+            "title": "test 2",
+            "publication_date": "2022-08-18",
+            "image_url": "",
+            "content":" test",
+            "approved": true,
+            "reactions": [],
+            "tags": [1]
+        }
+    },
+
+    {
+        "model": "app_api.post",
+        "pk": 3,
+        "fields": {
+            "user": 1,
+            "category": 1,
+            "title": "test 3",
+            "publication_date": "2022-08-15",
+            "image_url": "",
+            "content":" test",
+            "approved": true,
+            "reactions": [],
+            "tags": [1]
+        }
+    },
+
+    {
+        "model": "app_api.post",
+        "pk": 4,
+        "fields": {
+            "user": 1,
+            "category": 1,
+            "title": "test 4",
+            "publication_date": "2022-08-15",
+            "image_url": "",
+            "content":" test",
+            "approved": false,
+            "reactions": [],
+            "tags": [1]
+        }
     }
 ]

@@ -5,5 +5,26 @@
         "fields": {
             "label": "School"
         }
+    },
+    {
+        "model": "app_api.category",
+        "pk": 2,
+        "fields": {
+            "label": "Sports"
+        }
+    },
+    {
+        "model": "app_api.category",
+        "pk": 3,
+        "fields": {
+            "label": "Science"
+        }
+    },
+    {
+        "model": "app_api.category",
+        "pk": 4,
+        "fields": {
+            "label": "Mechanics"
+        }
     }
 ]

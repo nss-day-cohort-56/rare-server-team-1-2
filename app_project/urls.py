@@ -20,10 +20,17 @@ from app_api.views import register_user, login_user
 from app_api.views import TagView
 from app_api.views.category import CategoryView
 from rest_framework import routers
+from app_api.views import PostView
+
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'tags', TagView, 'tag')
+
+router.register(r'posts', PostView, 'post')
+
+
 router.register(r'categories', CategoryView, 'category')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

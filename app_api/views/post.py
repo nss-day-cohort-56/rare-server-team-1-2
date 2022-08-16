@@ -36,15 +36,16 @@ class PostView(ViewSet):
         return Response(serializer.data)
     def create(self, request):
         """HANDLE POST NEW post"""
-        category = Category.objects.get(pk=request.data["category"])
-        user = RareUser.objects.get(pk=request.data['user'])
+        category = Category.objects.get(pk=request.data["category_id"])
+        # user = RareUser.objects.get(pk=request.data['user_id'])
+        user=request.auth.user
+        rare_user = RareUser.objects.get(user__id = user.id)
         post = Post.objects.create(
         title = request.data['title'],  
         image_url = request.data['image_url'],
         content = request.data['content'],
-        approved = request.data['approved'],
         category = category,
-        user = user,
+        user = rare_user,
         publication_date = request.data['publication_date']
         )
         post.tags.add(*request.data['tags'])
@@ -53,7 +54,7 @@ class PostView(ViewSet):
         return Response(serializer.data)
     def update(self, request, pk):
         """updates post"""
-        category = Category.objects.get(pk=request.data["category"])
+        category = Category.objects.get(pk=request.data["category_id"])
 
         post = Post.objects.get(pk=pk)
         post.title = request.data['title'],  

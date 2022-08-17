@@ -10,6 +10,6 @@ class RareUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_image_url = models.TextField()
     created_on = models.DateField(auto_now_add= True)
-    active = models.BooleanField()
+    active = models.BooleanField(default=True)
     bio = models.TextField()
 

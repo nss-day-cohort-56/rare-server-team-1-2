@@ -6,6 +6,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 
+from ..models.rare_user import RareUser
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -46,12 +48,18 @@ def register_user(request):
     new_user = User.objects.create_user(
         username=request.data['username'],
         password=request.data['password'],
+        first_name=request.data['first_name'],
+        last_name=request.data['last_name'],
+        email=request.data['email']
     )
 
     # TODO: If you're using a model with a 1 to 1 relationship to the django user, create that object here
-
+    rare_user = RareUser.objects.create(
+        bio=request.data['bio'],
+        user=new_user
+    )
     
-    token = Token.objects.create(user=new_user)
+    token = Token.objects.create(user=rare_user.user)
     # TODO: If you need to send the client more information update the data dict
 
     # GM I added the 'valid: True' data to the dict - client side needs it to complete register workflow.

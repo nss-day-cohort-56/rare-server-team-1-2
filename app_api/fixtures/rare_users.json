@@ -9,5 +9,27 @@
             "bio": "test",
             "user": 1
         }
+    },
+    {
+        "model": "app_api.rareuser",
+        "pk": 6,
+        "fields": {
+            "profile_image_url": "",
+            "created_on": "2022-08-15",
+            "active": true,
+            "bio": "test",
+            "user": 6
+        }
+    },
+    {
+        "model": "app_api.rareuser",
+        "pk": 7,
+        "fields": {
+            "profile_image_url": "",
+            "created_on": "2022-08-15",
+            "active": true,
+            "bio": "test",
+            "user": 7
+        }
     }
 ]

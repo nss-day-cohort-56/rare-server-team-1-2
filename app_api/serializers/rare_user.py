@@ -11,3 +11,19 @@ class RareUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = RareUser
         fields = ('id','user')
+
+
+
+class UserDetailedSerializer(serializers.ModelSerializer):
+    """serializer to get more detailed information for user profile"""
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'email','is_staff','date_joined')
+
+
+class RareUserDetailedSerializer(serializers.ModelSerializer):
+    """serializer to get more detailed information for user profile"""
+    user = UserDetailedSerializer()
+    class Meta:
+        model = RareUser
+        fields = ('id','user','profile_image_url','bio')

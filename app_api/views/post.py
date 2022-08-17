@@ -79,3 +79,14 @@ class PostView(ViewSet):
         my_post = Post.objects.filter(user__id = rare_user.id)
         serializer = PostSerializer(my_post, many=True)
         return Response(serializer.data)
+    @action(methods= ['get'], detail=False)
+    def approve_post_list(self, request):
+        post = Post.objects.filter(approved = False)
+        serializer = PostSerializer(post, many=True)
+        return Response(serializer.data)
+    @action(methods=['put'], detail=True)
+    def approve_post(self,request,pk):
+        post = Post.objects.get(pk=pk)
+        post.approved = request.data["approved"]
+        post.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)

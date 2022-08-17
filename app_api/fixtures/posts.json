@@ -61,5 +61,20 @@
             "reactions": [],
             "tags": [1]
         }
+    },
+    {
+        "model": "app_api.post",
+        "pk": 4,
+        "fields": {
+            "user": 2,
+            "category": 1,
+            "title": "test 4",
+            "publication_date": "2022-08-15",
+            "image_url": "",
+            "content":" test should not appear",
+            "approved": false,
+            "reactions": [],
+            "tags": [1]
+        }
     }
 ]

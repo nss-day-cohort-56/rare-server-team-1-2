@@ -3,6 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
+from rest_framework.decorators import action
 
 from ..models.tag import Tag
 
@@ -71,3 +72,10 @@ class PostView(ViewSet):
         post = Post.objects.get(pk=pk)
         post.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+    @action(methods= ['get'], detail=False)
+    def my_post(self, request):
+        user = request.auth.user
+        rare_user = RareUser.objects.get(user__id = user.id)
+        my_post = Post.objects.filter(user__id = rare_user.id)
+        serializer = PostSerializer(my_post, many=True)
+        return Response(serializer.data)

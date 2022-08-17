@@ -5,7 +5,7 @@ from ..models.rare_user import RareUser
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username')
+        fields = ('first_name', 'last_name', 'username', 'is_staff')
 class RareUserSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:

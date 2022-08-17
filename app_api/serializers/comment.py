@@ -4,7 +4,8 @@ from .rare_user import RareUserSerializer
 
 from ..models.comment import Comment
 class CommentSerializer(serializers.ModelSerializer):
-    user = RareUserSerializer
+    author = RareUserSerializer()
     class Meta:
         model = Comment
-        fields = ('id','content', 'user', 'created_on')
+        fields = ('id','content', 'author_id', 'created_on', 'author', 'post_id')
+        depth = 1

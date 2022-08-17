@@ -8,3 +8,4 @@ class Comment(models.Model):
     author = models.ForeignKey("RareUser", on_delete=models.CASCADE, related_name="comments")
     content = models.TextField()
     created_on = models.DateField(auto_now_add= True)
+    subject = models.CharField(max_length=200, null=True)

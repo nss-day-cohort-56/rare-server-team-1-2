@@ -7,5 +7,5 @@ class CommentSerializer(serializers.ModelSerializer):
     author = RareUserSerializer()
     class Meta:
         model = Comment
-        fields = ('id','content', 'author_id', 'created_on', 'author', 'post_id')
+        fields = ('id','content', 'author_id', 'created_on', 'author', 'post_id', 'subject')
         depth = 1

@@ -20,7 +20,7 @@ class CommentView(ViewSet):
     def list(self, request):
         """Handles GET requests for all comments"""
 
-        post = request.query_params.get('post', None)
+        post = request.query_params.get('post_id', None)
         comments = Comment.objects.all().order_by("-created_on")
         if post is not None:
             comments = comments.filter(post_id=post)

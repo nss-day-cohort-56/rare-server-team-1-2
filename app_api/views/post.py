@@ -73,10 +73,9 @@ class PostView(ViewSet):
         post.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
     @action(methods= ['get'], detail=False)
-    def my_post(self, request):
-        user = request.auth.user
-        rare_user = RareUser.objects.get(user__id = user.id)
-        my_post = Post.objects.filter(user__id = rare_user.id)
+    def my_posts(self, request):
+        rare_user = RareUser.objects.get(user = request.auth.user)
+        my_post = Post.objects.filter(user = rare_user)
         serializer = PostSerializer(my_post, many=True)
         return Response(serializer.data)
     @action(methods= ['get'], detail=False)
@@ -87,6 +86,6 @@ class PostView(ViewSet):
     @action(methods=['put'], detail=True)
     def approve_post(self,request,pk):
         post = Post.objects.get(pk=pk)
-        post.approved = request.data["approved"]
+        post.approved = not post.approved
         post.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)

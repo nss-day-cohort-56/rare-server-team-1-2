@@ -8,7 +8,7 @@ from app_api.models import RareUser
 
 class RareUserView(ViewSet):
     """Viewset that handles user requests
-
+    
 
     """
     def list(self, request):

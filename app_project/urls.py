@@ -25,7 +25,7 @@ from app_api.views.category import CategoryView
 from rest_framework import routers
 from app_api.views import PostView
 from app_api.views import RareUserView
-
+from app_api.views import SubscriptionView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'tags', TagView, 'tag')
@@ -33,6 +33,7 @@ router.register(r'comments', CommentView, 'comment')
 router.register(r'posts', PostView, 'post')
 router.register(r'categories', CategoryView, 'category')
 router.register(r'users', RareUserView, 'user')
+router.register(r'subscriptions', SubscriptionView, 'subscription')
 
 
 urlpatterns = [

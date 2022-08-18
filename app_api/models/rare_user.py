@@ -13,3 +13,17 @@ class RareUser(models.Model):
     active = models.BooleanField()
     bio = models.TextField()
 
+    @property
+    def following(self):
+        return self.__following
+
+
+    @following.setter
+
+    def following(self, value):
+        """For each subscription, checking to see if the person making the request follows the author"""
+        for subscription in self.author_subscriptions.all():
+            if subscription.follower.id == value.id:
+                self.__following = True
+            else:
+                self.__following = False

@@ -2,5 +2,6 @@ from .category import CategorySerializer
 from .comment import CommentSerializer
 from .post import PostSerializer
 from .rare_user import RareUserSerializer
-from .rare_user import RareUserDetailedSerializer
 from .tags import TagSerializer
+from .subscription import SubscriptionSerializer
+from .rare_user import RareUserDetailedSerializer

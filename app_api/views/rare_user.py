@@ -31,10 +31,16 @@ class RareUserView(ViewSet):
 
     @action(methods = ['get'], detail=False)
     def active(self, request):
+
+        """method to handle returning ONLY ACTIVE USERS"""
+        user = RareUser.objects.get(user = request.auth.user)
+
         """method to handle returning a list of all ACTIVE users"""
 
         rare_users = RareUser.objects.all().order_by("user__username")
         rare_users = rare_users.filter(user__is_active = True)
+        for rare_user in rare_users:
+            rare_user.following = user
         serializer = RareUserSerializer(rare_users, many=True)
         return Response(serializer.data)
 

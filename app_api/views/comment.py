@@ -8,16 +8,30 @@ from ..models.rare_user import RareUser
 from ..serializers.comment import CommentSerializer
 class CommentView(ViewSet):
     """Rare app comment view"""
+    def retrieve(self, request, pk):
+        """handle Get request for single comment"""
+        try:
+            comment = Comment.objects.get(pk=pk)
+            serializer = CommentSerializer(comment)
+            return Response(serializer.data)
+        except Comment.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
     def list(self, request):
         """Handles GET requests for all comments"""
 
-        post = request.query_params.get('post', None)
-        comments = Comment.objects.all()
+        post = request.query_params.get('post_id', None)
+        comments = Comment.objects.all().order_by("-created_on")
         if post is not None:
             comments = comments.filter(post_id=post)
 
         serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk):
+        """Handles GET request for single comment"""
+        comment = Comment.objects.get(pk=pk)
+        serializer = CommentSerializer(comment)
         return Response(serializer.data)
 
     def create(self, request):
@@ -28,6 +42,7 @@ class CommentView(ViewSet):
         
         comment = Comment.objects.create(
             content=request.data["content"],
+            subject=request.data["subject"],
             author=author,
             post=post
         )
@@ -39,6 +54,7 @@ class CommentView(ViewSet):
         comment = Comment.objects.get(pk=pk)
         comment.content = request.data['content']
         comment.created_on = request.data['created_on']
+        comment.subject = request.data['subject']
         author = RareUser.objects.get(user=request.auth.user)
         comment.author = author
         post = Post.objects.get(pk=request.data["post_id"])

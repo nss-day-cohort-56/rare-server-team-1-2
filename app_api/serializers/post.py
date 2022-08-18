@@ -13,4 +13,4 @@ class PostSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
     class Meta:
         model = Post
-        fields = ('id','category', 'user', 'title', 'image_url', 'content', 'publication_date', 'tags')
+        fields = ('id','category', 'user', 'title', 'image_url', 'content', 'publication_date', 'tags','approved')

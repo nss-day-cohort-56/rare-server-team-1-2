@@ -22,7 +22,7 @@ class RareUser(models.Model):
 
     def following(self, value):
         """For each subscription, checking to see if the person making the request follows the author"""
-        for subscription in self.author_subscriptions.all():
+        for subscription in self.author_subscriptions.filter(ended_on = None):
             if subscription.follower.id == value.id:
                 self.__following = True
             else:

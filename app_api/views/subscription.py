@@ -43,7 +43,8 @@ class SubscriptionView(ViewSet):
         
     def update(self,request, pk):
         """method to handle editing subscriptions"""
-        subscription = Subscription.objects.get(pk=pk)
+        follower = RareUser.objects.get(user=request.auth.user)
+        subscription = Subscription.objects.get(author_id=pk, follower = follower, ended_on = None)
         subscription.ended_on= date.today()
         subscription.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)

@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.decorators import action
 
 from ..models.tag import Tag
-
+from ..models import Subscription
 from ..models.rare_user import RareUser
 
 from ..models.category import Category
@@ -102,10 +102,12 @@ class PostView(ViewSet):
         post.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
-    @action(methods= ['get'], detail=True)
-    def posts_by_user(self, request, pk):
-        """custom action that gets all approved posts for a single user"""
-        posts = Post.objects.filter(user__id = pk)
-        posts = posts.filter(approved = True)
+    @action(methods= ['get'], detail=False)
+    def get_subscribed_posts(self, request):
+        subscriptions = Subscription.objects.filter(follower__user = request.auth.user, ended_on = None)
+        authors = []
+        for subscription in subscriptions :
+            authors.append(subscription.author)
+        posts = Post.objects.filter(user__in = authors)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)

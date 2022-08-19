@@ -70,9 +70,9 @@ class PostView(ViewSet):
         category = Category.objects.get(pk=request.data["category_id"])
 
         post = Post.objects.get(pk=pk)
-        post.title = request.data['title'],  
-        post.image_url = request.data['image_url'],
-        post.content = request.data['content'],
+        post.title = request.data["title"]  
+        post.image_url = request.data['image_url']
+        post.content = request.data['content']
         post.publication_date = request.data['publication_date']
         post.category = category
         post.save()
@@ -101,6 +101,7 @@ class PostView(ViewSet):
         post.approved = not post.approved
         post.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
     @action(methods= ['get'], detail=False)
     def get_subscribed_posts(self, request):
         subscriptions = Subscription.objects.filter(follower__user = request.auth.user, ended_on = None)

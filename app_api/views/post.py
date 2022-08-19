@@ -20,7 +20,7 @@ class PostView(ViewSet):
         """
         # need  
     
-        posts = Post.objects.filter(approved=True, publication_date__lt = datetime.now() )
+        posts = Post.objects.filter(approved=True, publication_date__lte = datetime.now() )
         search_term = request.query_params.get('search_term', None)
         if search_term is not None :
             post = post.filter(address__contains = search_term)
@@ -41,14 +41,25 @@ class PostView(ViewSet):
         # user = RareUser.objects.get(pk=request.data['user_id'])
         user=request.auth.user
         rare_user = RareUser.objects.get(user__id = user.id)
-        post = Post.objects.create(
-        title = request.data['title'],  
-        image_url = request.data['image_url'],
-        content = request.data['content'],
-        category = category,
-        user = rare_user,
-        publication_date = request.data['publication_date']
-        )
+        if user.is_staff == True :
+            post = Post.objects.create(
+            title = request.data['title'],  
+            image_url = request.data['image_url'],
+            content = request.data['content'],
+            approved = True,
+            category = category,
+            user = rare_user,
+            publication_date = request.data['publication_date']
+            )
+        else : 
+            post = Post.objects.create(
+            title = request.data['title'],  
+            image_url = request.data['image_url'],
+            content = request.data['content'],
+            category = category,
+            user = rare_user,
+            publication_date = request.data['publication_date']
+            )
         post.tags.add(*request.data['tags'])
 
         serializer = PostSerializer(post)

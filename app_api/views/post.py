@@ -1,4 +1,5 @@
 from datetime import datetime
+from turtle import title
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
@@ -23,7 +24,7 @@ class PostView(ViewSet):
         posts = Post.objects.filter(approved=True, publication_date__lte = datetime.now() )
         search_term = request.query_params.get('search_term', None)
         if search_term is not None :
-            post = post.filter(address__contains = search_term)
+            posts = posts.filter(title__contains = search_term)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
     def retrieve(self, request, pk):

@@ -23,8 +23,11 @@ class PostView(ViewSet):
     
         posts = Post.objects.filter(approved=True, publication_date__lte = datetime.now() )
         search_term = request.query_params.get('search_term', None)
+        tag_search = request.query_params.get('tag_search', None)
         if search_term is not None :
             posts = posts.filter(title__contains = search_term)
+        if tag_search is not None:
+            posts = posts.filter(tags__label__contains = tag_search)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
     def retrieve(self, request, pk):

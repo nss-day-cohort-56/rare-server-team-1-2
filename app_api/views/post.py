@@ -70,9 +70,9 @@ class PostView(ViewSet):
         category = Category.objects.get(pk=request.data["category_id"])
 
         post = Post.objects.get(pk=pk)
-        post.title = request.data['title'],  
-        post.image_url = request.data['image_url'],
-        post.content = request.data['content'],
+        post.title = request.data["title"]  
+        post.image_url = request.data['image_url']
+        post.content = request.data['content']
         post.publication_date = request.data['publication_date']
         post.category = category
         post.save()
@@ -101,3 +101,11 @@ class PostView(ViewSet):
         post.approved = not post.approved
         post.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+    @action(methods= ['get'], detail=True)
+    def posts_by_user(self, request, pk):
+        """custom action that gets all approved posts for a single user"""
+        posts = Post.objects.filter(user__id = pk)
+        posts = posts.filter(approved = True)
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)

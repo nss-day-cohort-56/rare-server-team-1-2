@@ -29,6 +29,24 @@ class RareUserView(ViewSet):
         serializer = RareUserSerializer(rare_users, many=True)
         return Response(serializer.data)
 
+    def update(self,request,pk): 
+        """method to handle updating a users information"""
+        rare_user = RareUser.objects.get(pk = pk)
+        user = User.objects.get(pk=rare_user.user.id)
+
+        user.first_name = request.data["first_name"]
+        user.last_name = request.data["last_name"]
+        user.username = request.data["username"]
+        user.email = request.data["email"]
+        user.is_staff = request.data["is_staff"]
+        rare_user.bio = request.data["bio"]
+
+        user.save()
+        rare_user.save()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
     @action(methods = ['get'], detail=False)
     def active(self, request):
 
